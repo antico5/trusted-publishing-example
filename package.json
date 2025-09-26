@@ -1,0 +1,17 @@
+{
+  "name": "trusted-publishing-example",
+  "version": "1.0.0",
+  "description": "An example package published using Github as a trusted publisher",
+  "repository": {
+    "url": "https://github.com/alcuadrado/trusted-publishing-example"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "./*.js"
+  ],
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "chalk": "^5.0.0"
+  }
+}
