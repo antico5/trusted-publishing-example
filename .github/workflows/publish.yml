@@ -76,6 +76,8 @@ jobs:
         run: |
           TARBALL_URL=$(npm view "${{ needs.prepare.outputs.packageName }}@${{ env.NPM_TAG }}" dist.tarball)
           curl -L "$TARBALL_URL" -o ${{ env.NPM_TAG }}.tgz
+          TARBALL_NAME=$(basename "$TARBALL_URL")
+          echo "Downloaded $TARBALL_NAME as ${{ env.NPM_TAG }}.tgz"
       - name: Prepare tarballs for comparisons
         run: |
           mkdir ${{ env.NPM_TAG }}
@@ -99,9 +101,6 @@ jobs:
         with:
           name: ${{ needs.prepare.outputs.filename }}
           path: .
-      - uses: actions/setup-node@v5
-        with:
-          node-version: "22"
       - name: Update npm to support OIDC
         # Ensure npm 11.5.1 or later is installed
         run: npm install -g npm@latest
