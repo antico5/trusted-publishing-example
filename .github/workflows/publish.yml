@@ -101,8 +101,11 @@ jobs:
         with:
           name: ${{ needs.prepare.outputs.filename }}
           path: .
-      - name: Update npm to support OIDC
-        # Ensure npm 11.5.1 or later is installed
+      - name: Setup node to be able to update npm
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      - name: Update npm to make sure it supports Trusted Publishing
         run: npm install -g npm@latest
       - name: Publish
         run: |
