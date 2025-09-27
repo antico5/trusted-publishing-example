@@ -32,7 +32,7 @@ The first two jobs run automatically, but the `publish` job must be approved by 
 
 To approve it, they should inspect the logs, paying special attention to the `review` job output and any steps in `prepare` that may be useful. If everything looks good, they can approve the job, and the package will be published.
 
-As an extra security measure, the `publish` job has a wait time before proceeding, so that an approved job has a window of time to be canceled.
+As an extra security measure, the `publish` job has a wait time before proceeding, so that a job has a window of time to be canceled.
 
 ## Replicating this setup
 
@@ -53,6 +53,8 @@ Make sure to, at a minimum:
 - Require approvals from a set of trusted maintainers.
 - Forbid self-approvals and admin overrides.
 - Add a wait time before the job can run.
+
+Note that the wait time starts running when the job is proposed, not approved. So you need a way to get notified about it to be able to cancel it on time.
 
 ## Other security measures
 
