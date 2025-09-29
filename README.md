@@ -56,6 +56,10 @@ Make sure to, at a minimum:
 
 Note that the wait time starts running when the job is proposed, not approved. So you need a way to get notified about it to be able to cancel it on time.
 
+### Other work
+
+Note that this is an example, and not a complete setup. There are some open questions and further work that are needed. I created a few issues with more info about them. 
+
 ## Other security measures
 
 This repository also uses `minimum-release-age`, defined in the `.npmrc` file, to avoid installing dependencies that have been published too recently and could be compromised.
