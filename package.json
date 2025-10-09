@@ -3,7 +3,7 @@
   "version": "1.0.1",
   "description": "An example package published using Github as a trusted publisher",
   "repository": {
-    "url": "https://github.com/alcuadrado/trusted-publishing-example"
+    "url": "https://github.com/antico5/trusted-publishing-example"
   },
   "main": "index.js",
   "license": "MIT",
