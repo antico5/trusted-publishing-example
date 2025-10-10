@@ -16,12 +16,23 @@ importers:
         version: 5.8.3
 
   packages/antico-trusted-publishing-example:
+    dependencies:
+      antico-trusted-publishing-example-sub-1:
+        specifier: workspace:^1.0.1
+        version: link:../antico-trusted-publishing-example-sub-1
+      antico-trusted-publishing-example-sub-2:
+        specifier: workspace:^1.0.1
+        version: link:../antico-trusted-publishing-example-sub-2
     devDependencies:
       chalk:
         specifier: ^5.0.0
         version: 5.6.0
 
   packages/antico-trusted-publishing-example-sub-1:
+    dependencies:
+      antico-trusted-publishing-example-sub-2:
+        specifier: workspace:^1.0.1
+        version: link:../antico-trusted-publishing-example-sub-2
     devDependencies:
       chalk:
         specifier: ^5.0.0

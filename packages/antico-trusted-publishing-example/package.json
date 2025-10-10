@@ -15,5 +15,9 @@
   "packageManager": "pnpm@10.17.1",
   "devDependencies": {
     "chalk": "^5.0.0"
+  },
+  "dependencies": {
+    "antico-trusted-publishing-example-sub-1": "workspace:^1.0.1",
+    "antico-trusted-publishing-example-sub-2": "workspace:^1.0.1"
   }
 }
