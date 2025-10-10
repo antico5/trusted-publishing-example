@@ -14,6 +14,7 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    environment: npm-publish
     permissions:
       contents: write # This allows us to push to the repository and create GitHub releases
       pull-requests: write # This allows us to create pull requests
@@ -43,21 +44,21 @@ jobs:
           title: Version Packages (v3)
           version: pnpm version-for-release
 
-      - name: Build All Packages
-        if: steps.pr.outputs.hasChangesets == 'false'
-        run: pnpm run --recursive -no-bail --filter './v-next/**' --if-present build
+      # - name: Build All Packages
+      #   if: steps.pr.outputs.hasChangesets == 'false'
+      #   run: pnpm run --recursive -no-bail --filter './packages/**' --if-present build
 
       - name: Publish All Packages (dry-run)
         if: steps.pr.outputs.hasChangesets == 'false'
-        run: pnpm publish --filter "./v-next/**" -r --no-git-checks --access public --dry-run
+        run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public --dry-run
 
       - name: Publish All Packages
         id: publish
         if: steps.pr.outputs.hasChangesets == 'false'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
-        run: pnpm publish --filter "./v-next/**" -r --no-git-checks --access public
+        # env:
+        #   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+        #   NPM_CONFIG_PROVENANCE: true
+        run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public
 
       - name: Create Git tags for packages
         if: steps.pr.outputs.hasChangesets == 'false'
