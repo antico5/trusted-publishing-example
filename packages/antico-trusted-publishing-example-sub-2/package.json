@@ -1,0 +1,22 @@
+{
+  "name": "antico-trusted-publishing-example-sub-2",
+  "version": "1.0.3",
+  "description": "An example package published using Github as a trusted publisher",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antico5/trusted-publishing-example",
+    "directory": "packages/trusted-publishing-example-sub-2"
+  },
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "./*.js"
+  ],
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "chalk": "^5.0.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
