@@ -173,4 +173,4 @@ jobs:
           for filename in *.tgz; do
             echo "Publishing $filename"
             npm publish $filename --tag latest
-          done
+          done 
