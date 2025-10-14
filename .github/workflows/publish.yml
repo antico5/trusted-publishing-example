@@ -123,6 +123,12 @@ jobs:
           name: pnpm-publish-summary.json
           path: .
 
+      - name: Download tarballs
+        uses: actions/download-artifact@v5
+        with:
+          name: tarballs
+          path: tarballs
+
       - run: ls -la
       # - name: Download previous "@${{ env.NPM_TAG }}" version tarball
       #   run: |
