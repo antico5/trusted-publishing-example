@@ -50,20 +50,52 @@ jobs:
 
       - name: Publish All Packages (dry-run)
         if: steps.pr.outputs.hasChangesets == 'false'
-        run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public --dry-run
+        run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public --dry-run --report-summary
 
-      - name: Publish All Packages
-        id: publish
+      - name: Store the package list to be published
         if: steps.pr.outputs.hasChangesets == 'false'
-        # env:
-        #   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-        #   NPM_CONFIG_PROVENANCE: true
-        run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public
+        uses: actions/upload-artifact@v4
+        with:
+          name: pnpm-publish-summary.json
+          path: pnpm-publish-summary.json
+          retention-days: 2
+          overwrite: true
+          if-no-files-found: error
 
-      - name: Create Git tags for packages
+      - name: Pack
         if: steps.pr.outputs.hasChangesets == 'false'
-        run: pnpm changeset tag
+        id: pack
+        run: |
+          jq -r '.publishedPackages[].name' pnpm-publish-summary.json | while IFS= read -r name; do
+            pnpm pack -r --filter "$name" --pack-destination tarballs
+          done
+        # run: |
+        #   FILENAME=$(pnpm pack --json | jq -r .filename)
+        #   echo "FILENAME=$FILENAME"
+        #   echo "filename=$FILENAME" >> $GITHUB_OUTPUT
+          
+      - name: Upload packed tarballs
+        if: steps.pr.outputs.hasChangesets == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tarballs
+          path: tarballs
+          retention-days: 2
+          overwrite: true
+          if-no-files-found: error
 
-      - name: Push Git tags
-        if: steps.pr.outputs.hasChangesets == 'false'
-        run: git push --follow-tags
+      # - name: Publish All Packages
+      #   id: publish
+      #   if: steps.pr.outputs.hasChangesets == 'false'
+      #   # env:
+      #   #   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
+      #   #   NPM_CONFIG_PROVENANCE: true
+      #   run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public
+
+      # - name: Create Git tags for packages
+      #   if: steps.pr.outputs.hasChangesets == 'false'
+      #   run: pnpm changeset tag
+
+      # - name: Push Git tags
+      #   if: steps.pr.outputs.hasChangesets == 'false'
+      #   run: git push --follow-tags

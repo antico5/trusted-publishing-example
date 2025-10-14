@@ -1,2 +1,4 @@
 /node_modules/
 /*.tgz
+pnpm-publish-summary.json
+*.tgz
