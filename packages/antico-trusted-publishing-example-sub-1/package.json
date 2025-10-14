@@ -1,6 +1,6 @@
 {
   "name": "antico-trusted-publishing-example-sub-1",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An example package published using Github as a trusted publisher",
   "repository": {
     "type": "git",
@@ -17,6 +17,6 @@
     "chalk": "^5.0.0"
   },
   "dependencies": {
-    "antico-trusted-publishing-example-sub-2": "workspace:^1.1.2"
+    "antico-trusted-publishing-example-sub-2": "workspace:^1.1.3"
   }
 }

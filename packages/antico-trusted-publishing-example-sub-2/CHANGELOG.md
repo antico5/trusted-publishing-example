@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.3
+
+### Patch Changes
+
+- db49583: bump 3
+
 ## 1.1.2
 
 ### Patch Changes
