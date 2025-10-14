@@ -171,6 +171,7 @@ jobs:
         run: |
           cd tarballs
           for filename in *.tgz; do
+            [ -e "$f" ] || continue  # skip if there are no tarballs to publish
             echo "Publishing $filename"
             npm publish $filename --tag latest
-          done 
+          done
