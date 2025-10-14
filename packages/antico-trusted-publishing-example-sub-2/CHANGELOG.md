@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.2
+
+### Patch Changes
+
+- dd42357: bump all 2
+
 ## 1.1.1
 
 ### Patch Changes

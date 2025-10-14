@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.6
+
+### Patch Changes
+
+- dd42357: bump all 2
+- Updated dependencies [dd42357]
+  - antico-trusted-publishing-example-sub-2@1.1.2
+
 ## 1.0.5
 
 ### Patch Changes
