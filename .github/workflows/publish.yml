@@ -15,6 +15,8 @@ jobs:
     name: Prepare
     runs-on: ubuntu-latest
     environment: npm-publish
+    outputs:
+      hasChangesets: ${{ steps.store-has-changesets.outputs.hasChangesets }}
     permissions:
       contents: write # This allows us to push to the repository and create GitHub releases
       pull-requests: write # This allows us to create pull requests
@@ -117,7 +119,7 @@ jobs:
     steps:
       - name: test
         id: test
-        run: echo ${{needs.prepare.output}}
+        run: echo "has changesets: ${{needs.prepare.outputs.hasChangesets}}"
 
       # - name: Download packed tarball
       #   uses: actions/download-artifact@v4
