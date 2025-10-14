@@ -46,7 +46,9 @@ jobs:
 
       - name: Store hasChangesets for other jobs
         id: store-has-changesets
-        run: echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
+        run: |
+          echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}"
+          echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
 
       # - name: Build All Packages
       #   if: steps.pr.outputs.hasChangesets == 'false'
@@ -107,7 +109,7 @@ jobs:
       
   review:
     needs: prepare
-    if: ${{ needs.prepare.outputs.hasChangesets == 'false' }}
+    if: needs.prepare.outputs.hasChangesets == 'false'
 
     runs-on: ubuntu-latest
     permissions:
