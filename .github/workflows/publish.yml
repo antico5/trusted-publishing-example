@@ -111,7 +111,7 @@ jobs:
       
   review:
     needs: prepare
-    # if: needs.prepare.outputs.hasChangesets == 'false'
+    if: needs.prepare.outputs.hasChangesets == 'false'
 
     runs-on: ubuntu-latest
     permissions:
