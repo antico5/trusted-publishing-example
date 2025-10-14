@@ -1,5 +1,14 @@
 # antico-trusted-publishing-example
 
+## 1.0.8
+
+### Patch Changes
+
+- f1f8afb: asd
+- Updated dependencies [f1f8afb]
+  - antico-trusted-publishing-example-sub-1@1.0.8
+  - antico-trusted-publishing-example-sub-2@1.1.4
+
 ## 1.0.7
 
 ### Patch Changes
