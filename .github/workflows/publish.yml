@@ -44,6 +44,10 @@ jobs:
           title: Version Packages (v3)
           version: pnpm version-for-release
 
+      - name: Store hasChangesets for other jobs
+        id: store-has-changesets
+        run: echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
+
       # - name: Build All Packages
       #   if: steps.pr.outputs.hasChangesets == 'false'
       #   run: pnpm run --recursive -no-bail --filter './packages/**' --if-present build
@@ -103,7 +107,7 @@ jobs:
       
   review:
     needs: prepare
-    if: ${{ needs.prepare.steps.pr.outputs.hasChangesets == 'false' }}
+    if: ${{ needs.prepare.outputs.hasChangesets == 'false' }}
 
     runs-on: ubuntu-latest
     permissions:
