@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.5
+
+### Patch Changes
+
+- f0b02f3: sdfsdfs
+
 ## 1.1.4
 
 ### Patch Changes
