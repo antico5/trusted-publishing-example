@@ -130,6 +130,19 @@ jobs:
           path: tarballs
 
       - run: ls -la
+      - run: ls -la tarballs
+
+      - name: Download previous "latest" version tarballs
+      - run: |
+          jq -r '.publishedPackages[] | "\(.name)|\(.version)"' published.json |
+          while IFS='|' read -r name version; do
+            TARBALL_URL=$(npm view "$name@latest" dist.tarball)
+            curl -L "$TARBALL_URL" -o "tarballs/$name-latest.tgz"
+          done
+
+      - run: ls -la
+      - run: ls -la tarballs
+
       # - name: Download previous "@${{ env.NPM_TAG }}" version tarball
       #   run: |
       #     TARBALL_URL=$(npm view "${{ needs.prepare.outputs.packageName }}@${{ env.NPM_TAG }}" dist.tarball)
