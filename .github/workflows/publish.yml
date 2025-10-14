@@ -129,7 +129,7 @@ jobs:
           name: tarballs
           path: tarballs
 
-      - run: ls -lar
+      - run: ls -laR
 
       - name: Download previous "latest" version tarballs
         run: |
@@ -146,7 +146,7 @@ jobs:
             tar -xzf tarballs/$name-$version.tgz -C tarballs/$name/proposed
           done
 
-      - run: ls -lar
+      - run: ls -laR
 
       # - name: Prepare tarballs for comparisons
       #   run: |
