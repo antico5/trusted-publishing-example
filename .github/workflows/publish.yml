@@ -133,7 +133,7 @@ jobs:
       - run: ls -la tarballs
 
       - name: Download previous "latest" version tarballs
-      - run: |
+        run: |
           jq -r '.publishedPackages[] | "\(.name)|\(.version)"' published.json |
           while IFS='|' read -r name version; do
             TARBALL_URL=$(npm view "$name@latest" dist.tarball)
