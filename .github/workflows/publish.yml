@@ -144,6 +144,12 @@ jobs:
             mkdir -p tarballs/$name/latest
             tar -xzf tarballs/$name-latest.tgz -C tarballs/$name/latest
             tar -xzf tarballs/$name-$version.tgz -C tarballs/$name/proposed
+
+            # show diffs for review
+            echo "Showing files diff for $name"
+            git diff --color=always --no-index --name-status tarballs/$name/latest tarballs/$name/proposed || true
+            echo "Showing package.json diff for $name"
+            git diff --color=always --no-index tarballs/$name/latest/package/package.json tarballs/$name/proposed/package/package.json || true
           done
 
       - run: ls -laR
