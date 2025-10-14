@@ -119,7 +119,7 @@ jobs:
     steps:
       - name: test
         id: test
-        run: echo "has changesets: ${{needs.prepare.outputs.hasChangesets}}"
+        run: echo "has changesets ${{needs.prepare.outputs.hasChangesets}}"
 
       # - name: Download packed tarball
       #   uses: actions/download-artifact@v4
