@@ -14,13 +14,11 @@ jobs:
   prepare:
     name: Prepare
     runs-on: ubuntu-latest
-    environment: npm-publish
     outputs:
       hasChangesets: ${{ steps.store-has-changesets.outputs.hasChangesets }}
     permissions:
       contents: write # This allows us to push to the repository and create GitHub releases
       pull-requests: write # This allows us to create pull requests
-      id-token: write # Provenance generation in GitHub Actions requires "write" access to the "id-token" permission
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
@@ -129,8 +127,6 @@ jobs:
           name: tarballs
           path: tarballs
 
-      - run: ls -laR
-
       - name: Download previous "latest" version tarballs
         run: |
           jq -r '.publishedPackages[] | "\(.name)|\(.version)"' pnpm-publish-summary.json |
@@ -146,24 +142,36 @@ jobs:
             tar -xzf tarballs/$name-$version.tgz -C tarballs/$name/proposed
 
             # show diffs for review
-            echo "\033[33m Showing files diff for $name \033[0m"
+            echo "<< Showing files diff for $name >>"
             git diff --color=always --no-index --name-status tarballs/$name/latest tarballs/$name/proposed || true
-            echo "\033[33m Showing package.json diff for $name \033[0m"
+            echo "<< Showing package.json diff for $name >>"
             git diff --color=always --no-index tarballs/$name/latest/package/package.json tarballs/$name/proposed/package/package.json || true
           done
 
-      - run: ls -laR
-
-      # - name: Prepare tarballs for comparisons
-      #   run: |
-      #     mkdir ${{ env.NPM_TAG }}
-      #     tar -xzf ${{ env.NPM_TAG }}.tgz -C ${{ env.NPM_TAG }}
-      #     mkdir proposed-version
-      #     tar -xzf ${{ needs.prepare.outputs.filename }} -C proposed-version
-
-      # - name: List new, changed and deleted files
-      #   run: |
-      #     git diff --color=always --no-index --name-status ${{ env.NPM_TAG }} proposed-version || true
-      # - name: Compare package.json files
-      #   run: |
-      #     git diff --color=always --no-index ${{ env.NPM_TAG }}/package/package.json proposed-version/package/package.json  || true
+  publish:
+    needs: [prepare, review]
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      actions: read # To download the tarball to publish
+      id-token: write ## Needed for npm Trusted Publishing (OIDC)
+    steps:
+      - name: Download tarballs
+        uses: actions/download-artifact@v5
+        with:
+          name: tarballs
+          path: tarballs
+      - name: Setup node to be able to update npm
+        uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      - name: Update npm to make sure it supports Trusted Publishing
+        run: npm install -g npm@latest
+      - name: Publish
+        run: |
+          for filename in tarballs/*.tgz; do
+            echo "Publishing $filename"
+            npm publish $filename --tag latest
+          done
+          echo "Publishing ${{ needs.prepare.outputs.filename }}"
+          npm publish "${{ needs.prepare.outputs.filename }}" --tag ${{ env.NPM_TAG }}
