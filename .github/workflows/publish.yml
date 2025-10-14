@@ -117,15 +117,13 @@ jobs:
     permissions:
       actions: read # To download the tarball to review
     steps:
-      - name: test
-        id: test
-        run: echo "has changesets ${{needs.prepare.outputs.hasChangesets}}"
+      - name: Download pnpm list json
+        uses: actions/download-artifact@v5
+        with:
+          name: pnpm-publish-summary.json
+          path: .
 
-      # - name: Download packed tarball
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: ${{ needs.prepare.outputs.filename }}
-      #     path: .
+      - run: ls -la
       # - name: Download previous "@${{ env.NPM_TAG }}" version tarball
       #   run: |
       #     TARBALL_URL=$(npm view "${{ needs.prepare.outputs.packageName }}@${{ env.NPM_TAG }}" dist.tarball)
