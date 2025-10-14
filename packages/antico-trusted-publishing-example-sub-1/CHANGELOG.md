@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.7
+
+### Patch Changes
+
+- db49583: bump 3
+- Updated dependencies [db49583]
+  - antico-trusted-publishing-example-sub-2@1.1.3
+
 ## 1.0.6
 
 ### Patch Changes
