@@ -11,8 +11,8 @@ defaults:
     shell: bash
 
 jobs:
-  release:
-    name: Release
+  prepare:
+    name: Prepare
     runs-on: ubuntu-latest
     environment: npm-publish
     permissions:
