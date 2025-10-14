@@ -134,7 +134,7 @@ jobs:
 
       - name: Download previous "latest" version tarballs
         run: |
-          jq -r '.publishedPackages[] | "\(.name)|\(.version)"' published.json |
+          jq -r '.publishedPackages[] | "\(.name)|\(.version)"' pnpm-publish-summary.json |
           while IFS='|' read -r name version; do
             TARBALL_URL=$(npm view "$name@latest" dist.tarball)
             curl -L "$TARBALL_URL" -o "tarballs/$name-latest.tgz"
