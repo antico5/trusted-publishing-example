@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.6
+
+### Patch Changes
+
+- 6562cc3: publish
+
 ## 1.1.5
 
 ### Patch Changes

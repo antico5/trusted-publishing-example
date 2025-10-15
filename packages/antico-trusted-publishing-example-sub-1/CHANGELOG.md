@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.9
+
+### Patch Changes
+
+- 6562cc3: publish
+- Updated dependencies [6562cc3]
+  - antico-trusted-publishing-example-sub-2@1.1.6
+
 ## 1.0.8
 
 ### Patch Changes
