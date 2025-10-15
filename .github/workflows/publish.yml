@@ -183,15 +183,19 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Create Git tags for packages
-        run: pnpm changeset tag
-
-      - name: Push Git tags
+      - name: Create and push Git tags for packages
         run: |
+          pnpm changeset tag
           git tag
-          git remote -v
-          git ls-remote --tags origin
-          # First push commits (if any)
-          git push origin HEAD:${{ github.ref_name }}
-          # Then push tags explicitly
-          git push origin --tags
+          git push --follow-tags
+
+
+      # - name: Push Git tags
+      #   run: |
+      #     git tag
+      #     git remote -v
+      #     git ls-remote --tags origin
+      #     # First push commits (if any)
+      #     git push origin HEAD:${{ github.ref_name }}
+      #     # Then push tags explicitly
+      #     git push origin --tags
