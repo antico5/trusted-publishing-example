@@ -60,11 +60,7 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
-        with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
-          fetch-depth: 0
-          # NOTE: If we use default GITHUB_TOKEN to create the release PR, the checks on the release PR will not be triggered automatically
-          persist-credentials: true
+
       - name: Set up the environment
         uses: ./.github/actions/setup-env
 
@@ -99,13 +95,7 @@ jobs:
           overwrite: true
           if-no-files-found: error
 
-      - run: |
-          git config user.name  "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
-
-      - name: Create and push Git tags for packages
-        run: pnpm changeset tag
-      - run: git push --follow-tags
+      
       
   review:
     name: Review diffs
@@ -176,38 +166,29 @@ jobs:
             npm publish $filename --tag latest
           done
 
-  # tag:
-  #   name: Push tags
-  #   needs: publish
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: write # This allows us to push to the repository and create GitHub releases
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@v5
-  #       with:
-  #         fetch-depth: 0
-  #         token: ${{ secrets.RELEASE_GITHUB_TOKEN || github.token }}
+  tag:
+    name: Push tags
+    needs: publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
-  #     - name: Set up the environment
-  #       uses: ./.github/actions/setup-env
+      - name: Set up the environment
+        uses: ./.github/actions/setup-env
 
-  #     - name: Install Dependencies
-  #       run: pnpm install --frozen-lockfile --prefer-offline
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --prefer-offline
 
-  #     - name: Create and push Git tags for packages
-  #       run: |
-  #         pnpm changeset tag
-  #         git tag
-  #         git push --follow-tags
+      - run: |
+          git config user.name  "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
 
-
-      # - name: Push Git tags
-      #   run: |
-      #     git tag
-      #     git remote -v
-      #     git ls-remote --tags origin
-      #     # First push commits (if any)
-      #     git push origin HEAD:${{ github.ref_name }}
-      #     # Then push tags explicitly
-      #     git push origin --tags
+      - name: Create tags for packages
+        run: pnpm changeset tag
+      - name: Push tags
+        run: git push --follow-tags
