@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.14
+
+### Patch Changes
+
+- 2347a9a: asd
+- Updated dependencies [2347a9a]
+  - antico-trusted-publishing-example-sub-2@1.1.10
+
 ## 1.0.13
 
 ### Patch Changes
