@@ -11,13 +11,12 @@ defaults:
     shell: bash
 
 jobs:
-  prepare:
-    name: Prepare
+  pr:
+    name: Create release PR
     runs-on: ubuntu-latest
     outputs:
       hasChangesets: ${{ steps.store-has-changesets.outputs.hasChangesets }}
     permissions:
-      contents: write # This allows us to push to the repository and create GitHub releases
       pull-requests: write # This allows us to create pull requests
     steps:
       - name: Checkout Repo
@@ -50,16 +49,27 @@ jobs:
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}"
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
 
-      # - name: Build All Packages
-      #   if: steps.pr.outputs.hasChangesets == 'false'
-      #   run: pnpm run --recursive -no-bail --filter './packages/**' --if-present build
+  pack:
+    name: Generate tarballs
+    needs: pr
+    if: needs.pr.outputs.hasChangesets == 'false'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # This allows us to push to the repository and create GitHub releases
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v5
+
+      - name: Set up the environment
+        uses: ./.github/actions/setup-env
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --prefer-offline
 
       - name: Publish All Packages (dry-run) and save list of packages that need publishing
-        if: steps.pr.outputs.hasChangesets == 'false'
         run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public --dry-run --report-summary
 
       - name: Store the package list to be published
-        if: steps.pr.outputs.hasChangesets == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: pnpm-publish-summary.json
@@ -69,7 +79,6 @@ jobs:
           if-no-files-found: error
 
       - name: Generate tarballs for packages that need publishing
-        if: steps.pr.outputs.hasChangesets == 'false'
         id: pack
         run: |
           jq -r '.publishedPackages[].name' pnpm-publish-summary.json | while IFS= read -r name; do
@@ -77,7 +86,6 @@ jobs:
           done
           
       - name: Upload packed tarballs
-        if: steps.pr.outputs.hasChangesets == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: tarballs
@@ -85,27 +93,9 @@ jobs:
           retention-days: 2
           overwrite: true
           if-no-files-found: error
-
-      # - name: Publish All Packages
-      #   id: publish
-      #   if: steps.pr.outputs.hasChangesets == 'false'
-      #   # env:
-      #   #   NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
-      #   #   NPM_CONFIG_PROVENANCE: true
-      #   run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public
-
-      # - name: Create Git tags for packages
-      #   if: steps.pr.outputs.hasChangesets == 'false'
-      #   run: pnpm changeset tag
-
-      # - name: Push Git tags
-      #   if: steps.pr.outputs.hasChangesets == 'false'
-      #   run: git push --follow-tags
-
       
   review:
-    needs: prepare
-    if: needs.prepare.outputs.hasChangesets == 'false'
+    needs: pack
 
     runs-on: ubuntu-latest
     permissions:
@@ -145,7 +135,7 @@ jobs:
           done
 
   publish:
-    needs: [prepare, review]
+    needs: review
     runs-on: ubuntu-latest
     environment: npm-publish
     permissions:
