@@ -188,6 +188,9 @@ jobs:
 
       - name: Push Git tags
         run: |
+          git tag
+          git remote -v
+          git ls-remote --tags origin
           # First push commits (if any)
           git push origin HEAD:${{ github.ref_name }}
           # Then push tags explicitly
