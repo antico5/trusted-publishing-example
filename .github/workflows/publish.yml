@@ -12,7 +12,7 @@ defaults:
 
 jobs:
   pr:
-    name: Create release PR
+    name: Conditionally create a release PR
     runs-on: ubuntu-latest
     outputs:
       hasChangesets: ${{ steps.store-has-changesets.outputs.hasChangesets }}
@@ -101,7 +101,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      actions: read # To download the tarball to review
+      actions: read # To download the tarballs to review
     steps:
       - name: Download pnpm list json
         uses: actions/download-artifact@v5
@@ -168,6 +168,8 @@ jobs:
     name: Push tags
     needs: publish
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # This allows us to push to the repository and create GitHub releases
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
