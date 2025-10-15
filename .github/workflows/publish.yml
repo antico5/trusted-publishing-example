@@ -187,4 +187,8 @@ jobs:
         run: pnpm changeset tag
 
       - name: Push Git tags
-        run: git push --follow-tags
+        run: |
+          # First push commits (if any)
+          git push origin HEAD:${{ github.ref_name }}
+          # Then push tags explicitly
+          git push origin --tags
