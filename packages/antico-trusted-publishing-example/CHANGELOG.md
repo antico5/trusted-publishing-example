@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example
 
+## 1.0.15
+
+### Patch Changes
+
+- 9bbe3ac: asdasda
+
 ## 1.0.14
 
 ### Patch Changes
