@@ -51,7 +51,7 @@ jobs:
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
 
   pack:
-    name: Generate tarballs
+    name: Generate tarballs for publishing
     needs: pr
     if: needs.pr.outputs.hasChangesets == 'false'
     runs-on: ubuntu-latest
@@ -96,6 +96,7 @@ jobs:
           if-no-files-found: error
       
   review:
+    name: Review diffs
     needs: pack
 
     runs-on: ubuntu-latest
@@ -136,6 +137,7 @@ jobs:
           done
 
   publish:
+    name: Publish packages
     needs: review
     runs-on: ubuntu-latest
     environment: npm-publish
@@ -163,6 +165,7 @@ jobs:
           done
 
   tag:
+    name: Push tags
     needs: publish
     runs-on: ubuntu-latest
     steps:
