@@ -1,5 +1,14 @@
 # antico-trusted-publishing-example
 
+## 1.0.11
+
+### Patch Changes
+
+- a49a2b4: fix tagging
+- Updated dependencies [a49a2b4]
+  - antico-trusted-publishing-example-sub-1@1.0.12
+  - antico-trusted-publishing-example-sub-2@1.1.8
+
 ## 1.0.10
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.8
+
+### Patch Changes
+
+- a49a2b4: fix tagging
+
 ## 1.1.7
 
 ### Patch Changes
