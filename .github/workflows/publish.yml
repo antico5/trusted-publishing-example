@@ -1,4 +1,4 @@
-name: Release
+name: Create release PR / Publish packages
 
 on:
   workflow_dispatch:
@@ -44,16 +44,7 @@ jobs:
           title: Version Packages (v3)
           version: pnpm version-for-release
 
-      - name: Cancel this workflow run
-        if: steps.pr.outputs.hasChangesets == 'false'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { owner, repo } = context.repo;
-            const run_id = context.runId;
-            await github.rest.actions.cancelWorkflowRun({ owner, repo, run_id });
-
-      - name: Store hasChangesets for other jobs
+      - name: Store hasChangesets for subsequent jobs
         id: store-has-changesets
         run: |
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}"
@@ -63,7 +54,7 @@ jobs:
       #   if: steps.pr.outputs.hasChangesets == 'false'
       #   run: pnpm run --recursive -no-bail --filter './packages/**' --if-present build
 
-      - name: Publish All Packages (dry-run)
+      - name: Publish All Packages (dry-run) and save list of packages that need publishing
         if: steps.pr.outputs.hasChangesets == 'false'
         run: pnpm publish --filter "./packages/**" -r --no-git-checks --access public --dry-run --report-summary
 
@@ -77,17 +68,13 @@ jobs:
           overwrite: true
           if-no-files-found: error
 
-      - name: Pack
+      - name: Generate tarballs for packages that need publishing
         if: steps.pr.outputs.hasChangesets == 'false'
         id: pack
         run: |
           jq -r '.publishedPackages[].name' pnpm-publish-summary.json | while IFS= read -r name; do
             pnpm pack -r --filter "$name" --pack-destination tarballs
           done
-        # run: |
-        #   FILENAME=$(pnpm pack --json | jq -r .filename)
-        #   echo "FILENAME=$FILENAME"
-        #   echo "filename=$FILENAME" >> $GITHUB_OUTPUT
           
       - name: Upload packed tarballs
         if: steps.pr.outputs.hasChangesets == 'false'
@@ -184,3 +171,22 @@ jobs:
             echo "Publishing $filename"
             npm publish $filename --tag latest
           done
+
+  tag:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v5
+
+      - name: Set up the environment
+        uses: ./.github/actions/setup-env
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile --prefer-offline
+
+      - name: Create Git tags for packages
+        run: pnpm changeset tag
+
+      - name: Push Git tags
+        run: git push --follow-tags
