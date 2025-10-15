@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.10
+
+### Patch Changes
+
+- 2347a9a: asd
+
 ## 1.1.9
 
 ### Patch Changes
