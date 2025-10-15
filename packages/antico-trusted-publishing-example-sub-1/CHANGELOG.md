@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.13
+
+### Patch Changes
+
+- 8adf20f: patch
+- Updated dependencies [8adf20f]
+  - antico-trusted-publishing-example-sub-2@1.1.9
+
 ## 1.0.12
 
 ### Patch Changes
