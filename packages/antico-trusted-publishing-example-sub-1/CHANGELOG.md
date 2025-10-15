@@ -1,5 +1,13 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.0.10
+
+### Patch Changes
+
+- 8ee78e5: patch
+- Updated dependencies [8ee78e5]
+  - antico-trusted-publishing-example-sub-2@1.1.7
+
 ## 1.0.9
 
 ### Patch Changes

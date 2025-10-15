@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.7
+
+### Patch Changes
+
+- 8ee78e5: patch
+
 ## 1.1.6
 
 ### Patch Changes
