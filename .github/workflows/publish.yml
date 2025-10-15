@@ -60,7 +60,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v5
-
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+          # NOTE: If we use default GITHUB_TOKEN to create the release PR, the checks on the release PR will not be triggered automatically
+          persist-credentials: true
       - name: Set up the environment
         uses: ./.github/actions/setup-env
 
@@ -94,6 +98,16 @@ jobs:
           retention-days: 2
           overwrite: true
           if-no-files-found: error
+
+      - run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push Git tags for packages
+        run: |
+          git tag -a pppppp -m pppppp
+      - run: git tag
+      - run: git push --follow-tags
       
   review:
     name: Review diffs
@@ -164,30 +178,30 @@ jobs:
             npm publish $filename --tag latest
           done
 
-  tag:
-    name: Push tags
-    needs: publish
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # This allows us to push to the repository and create GitHub releases
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.RELEASE_GITHUB_TOKEN || github.token }}
+  # tag:
+  #   name: Push tags
+  #   needs: publish
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write # This allows us to push to the repository and create GitHub releases
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v5
+  #       with:
+  #         fetch-depth: 0
+  #         token: ${{ secrets.RELEASE_GITHUB_TOKEN || github.token }}
 
-      - name: Set up the environment
-        uses: ./.github/actions/setup-env
+  #     - name: Set up the environment
+  #       uses: ./.github/actions/setup-env
 
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile --prefer-offline
+  #     - name: Install Dependencies
+  #       run: pnpm install --frozen-lockfile --prefer-offline
 
-      - name: Create and push Git tags for packages
-        run: |
-          pnpm changeset tag
-          git tag
-          git push --follow-tags
+  #     - name: Create and push Git tags for packages
+  #       run: |
+  #         pnpm changeset tag
+  #         git tag
+  #         git push --follow-tags
 
 
       # - name: Push Git tags
