@@ -1,5 +1,14 @@
 # antico-trusted-publishing-example
 
+## 1.0.16
+
+### Patch Changes
+
+- 901cf0e: patch 13
+- Updated dependencies [901cf0e]
+  - antico-trusted-publishing-example-sub-1@1.0.16
+  - antico-trusted-publishing-example-sub-2@1.1.12
+
 ## 1.0.15
 
 ### Patch Changes
