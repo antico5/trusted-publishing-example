@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.1.12
+
+### Patch Changes
+
+- 901cf0e: patch 13
+
 ## 1.1.11
 
 ### Patch Changes
