@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "antico-trusted-publishing-example": "workspace:^1.0.0"
   }
 }

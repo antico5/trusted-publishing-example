@@ -18,5 +18,8 @@
   },
   "dependencies": {
     "antico-trusted-publishing-example-sub-2": "workspace:^1.1.11"
+  },
+  "peerDependencies": {
+    "antico-trusted-publishing-example": "workspace:^1.0.0"
   }
 }
