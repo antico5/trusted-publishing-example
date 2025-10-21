@@ -23,7 +23,9 @@ async function validatePullRequest() {
     return;
   }
 
-  throw new Error("Peer dependencies are not reviewed");
+  throw new Error(
+    `Peer dependencies are not reviewed. Add the '${REVIEWED_LABEL}' label to this PR once peer dependency version ranges have been manually reviewed.`
+  );
 }
 
 await validatePullRequest();
