@@ -1,5 +1,19 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.1.0
+
+### Minor Changes
+
+- dfd1ad3: Add base pkg as peer dep
+
+### Patch Changes
+
+- 901cf0e: patch 13
+- Updated dependencies [dfd1ad3]
+- Updated dependencies [901cf0e]
+  - antico-trusted-publishing-example-sub-2@1.2.0
+  - antico-trusted-publishing-example@1.0.16
+
 ## 1.0.15
 
 ### Patch Changes
