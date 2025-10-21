@@ -17,6 +17,9 @@ on:
       - edited
       - unlocked
       - ready_for_review
+  push:
+    branches:
+      - changeset-release/main
 
 jobs:
   check-label:
