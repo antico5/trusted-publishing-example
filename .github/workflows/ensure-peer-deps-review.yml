@@ -1,5 +1,5 @@
 # This check runs only on the release PR created by changesets.
-# It requires that a label is added to ensure that peer dependency versions have been manually reviewed
+# It requires that a label is added to ensure that peer dependency versions have been manually reviewed.
 
 name: Check peer dependency versions have been reviewed
 
