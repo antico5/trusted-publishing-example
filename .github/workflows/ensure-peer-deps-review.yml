@@ -25,7 +25,7 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v5
 
-      - name: Check if PR links to documentation
+      - name: Check for the label presence
         if: github.event_name == 'pull_request'
         env:
           GITHUB_EVENT_PULL_REQUEST_LABELS: ${{ toJson(github.event.pull_request.labels) }}
