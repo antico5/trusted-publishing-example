@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.2.0
+
+### Minor Changes
+
+- abd4c8c: asd
+
 ## 1.1.0
 
 ### Minor Changes
