@@ -147,21 +147,34 @@ jobs:
       actions: read # To download the tarball to publish
       id-token: write ## Needed for npm Trusted Publishing (OIDC)
     steps:
+      - name: Download pnpm list json
+        uses: actions/download-artifact@v5
+        with:
+          name: pnpm-publish-summary.json
+          path: .
+
       - name: Download tarballs
         uses: actions/download-artifact@v5
         with:
           name: tarballs
           path: tarballs
+
       - name: Setup node to be able to update npm
         uses: actions/setup-node@v5
         with:
           node-version: lts/*
+
       - name: Update npm to make sure it supports Trusted Publishing
         run: npm install -g npm@latest
       - name: Publish
         run: |
           cd tarballs
-          for filename in *.tgz; do
+          jq -r '.publishedPackages[] | "\(.name)|\(.version)"' ../pnpm-publish-summary.json |
+          while IFS='|' read -r name version; do
+            NORMALIZED_NAME="${name//\//-}"
+            NORMALIZED_NAME="${NORMALIZED_NAME//@/}"
+            filename=$NORMALIZED_NAME-$version.tgz
+
             echo "Publishing $filename"
             npm publish $filename --tag latest
           done
