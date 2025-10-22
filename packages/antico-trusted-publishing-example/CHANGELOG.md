@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example
 
+## 1.0.17
+
+### Patch Changes
+
+- Bump sub 1 to 1.2.0
+
 ## 1.0.16
 
 ### Patch Changes
