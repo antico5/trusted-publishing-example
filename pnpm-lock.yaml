@@ -18,10 +18,10 @@ importers:
   packages/antico-trusted-publishing-example:
     dependencies:
       antico-trusted-publishing-example-sub-1:
-        specifier: workspace:^1.0.15
+        specifier: workspace:^1.2.0
         version: link:../antico-trusted-publishing-example-sub-1
       antico-trusted-publishing-example-sub-2:
-        specifier: workspace:^1.1.11
+        specifier: workspace:^1.2.0
         version: link:../antico-trusted-publishing-example-sub-2
     devDependencies:
       chalk:
@@ -31,10 +31,10 @@ importers:
   packages/antico-trusted-publishing-example-sub-1:
     dependencies:
       antico-trusted-publishing-example:
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.16
         version: link:../antico-trusted-publishing-example
       antico-trusted-publishing-example-sub-2:
-        specifier: workspace:^1.1.11
+        specifier: workspace:^1.2.0
         version: link:../antico-trusted-publishing-example-sub-2
     devDependencies:
       chalk:
@@ -44,7 +44,7 @@ importers:
   packages/antico-trusted-publishing-example-sub-2:
     dependencies:
       antico-trusted-publishing-example:
-        specifier: workspace:^1.0.0
+        specifier: workspace:^1.0.16
         version: link:../antico-trusted-publishing-example
       lodash:
         specifier: ^4.17.21

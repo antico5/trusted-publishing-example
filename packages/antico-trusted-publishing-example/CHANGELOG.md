@@ -1,5 +1,17 @@
 # antico-trusted-publishing-example
 
+## 1.0.16
+
+### Patch Changes
+
+- 901cf0e: patch 13
+- 7ae4562: asdsada
+- Updated dependencies [dfd1ad3]
+- Updated dependencies [901cf0e]
+- Updated dependencies [7ae4562]
+  - antico-trusted-publishing-example-sub-1@1.1.0
+  - antico-trusted-publishing-example-sub-2@1.2.0
+
 ## 1.0.15
 
 ### Patch Changes
