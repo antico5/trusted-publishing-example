@@ -79,6 +79,7 @@ jobs:
           overwrite: true
           if-no-files-found: error
 
+      # The --filter parameter filters by exact package name, so there's no risk of a package name being a substring of another package name
       - name: Generate tarballs for packages that need publishing
         id: pack
         run: |
