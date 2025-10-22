@@ -1,5 +1,19 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.2.0
+
+### Minor Changes
+
+- dfd1ad3: Add base pkg as peer dep
+
+### Patch Changes
+
+- 901cf0e: patch 13
+- 7ae4562: asdsada
+- Updated dependencies [901cf0e]
+- Updated dependencies [7ae4562]
+  - antico-trusted-publishing-example@1.0.16
+
 ## 1.1.11
 
 ### Patch Changes
