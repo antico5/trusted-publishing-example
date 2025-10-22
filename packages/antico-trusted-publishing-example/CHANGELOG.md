@@ -1,5 +1,16 @@
 # antico-trusted-publishing-example
 
+## 1.0.18
+
+### Patch Changes
+
+- 64071ef: asdsad
+- 46cad0b: change deps
+- Updated dependencies [64071ef]
+- Updated dependencies [46cad0b]
+  - antico-trusted-publishing-example-sub-1@1.2.1
+  - antico-trusted-publishing-example-sub-2@1.2.1
+
 ## 1.0.17
 
 ### Patch Changes
