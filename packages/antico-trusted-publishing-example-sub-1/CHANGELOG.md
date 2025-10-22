@@ -1,5 +1,12 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.2.1
+
+### Patch Changes
+
+- 64071ef: asdsad
+- 46cad0b: change deps
+
 ## 1.2.0
 
 ### Minor Changes
