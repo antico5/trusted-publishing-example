@@ -1,6 +1,6 @@
 {
   "name": "antico-trusted-publishing-example-sub-2",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "An example package published using Github as a trusted publisher",
   "repository": {
     "type": "git",
@@ -18,9 +18,9 @@
   },
   "dependencies": {
     "lodash": "^4.17.21",
-    "antico-trusted-publishing-example-sub-1": "workspace:^1.2.1"
+    "antico-trusted-publishing-example-sub-1": "workspace:^1.2.2"
   },
   "peerDependencies": {
-    "antico-trusted-publishing-example": "workspace:^1.0.18"
+    "antico-trusted-publishing-example": "workspace:^1.0.19"
   }
 }
