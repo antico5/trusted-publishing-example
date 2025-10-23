@@ -36,7 +36,7 @@ on:
 
 jobs:
   check-label:
-    if: github.head_ref == 'changeset-release/main'
+    # if: github.head_ref == 'changeset-release/main'
     name: Check peer dependency versions have been reviewed
     runs-on: ubuntu-latest
     steps:
