@@ -1,5 +1,11 @@
 # antico-trusted-publishing-example-sub-1
 
+## 1.2.2
+
+### Patch Changes
+
+- 9cb3f70: asd
+
 ## 1.2.1
 
 ### Patch Changes

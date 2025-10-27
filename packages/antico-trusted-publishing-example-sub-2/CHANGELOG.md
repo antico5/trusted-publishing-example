@@ -1,5 +1,14 @@
 # antico-trusted-publishing-example-sub-2
 
+## 1.2.2
+
+### Patch Changes
+
+- 9cb3f70: asd
+- Updated dependencies [9cb3f70]
+  - antico-trusted-publishing-example@1.0.19
+  - antico-trusted-publishing-example-sub-1@1.2.2
+
 ## 1.2.1
 
 ### Patch Changes
