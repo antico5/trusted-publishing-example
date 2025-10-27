@@ -50,6 +50,10 @@ jobs:
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}"
           echo "hasChangesets=${{steps.pr.outputs.hasChangesets}}" >> $GITHUB_OUTPUT
 
+      # The following two steps are to mark the changesets PR as draft
+      # This is so a user must mark it as ready for review, which will trigger workflows on this PR
+      # Otherwise workflows won't run since the PR is created by an action itself
+
       - name: Find package versions PR
         if: steps.pr.outputs.hasChangesets == 'true'
         uses: actions/github-script@v7
@@ -65,9 +69,9 @@ jobs:
             if (!prs.length) core.setFailed(`No open PR from ${head}`);
             return { number: prs[0].number };
 
-      - uses: actions/github-script@v7
-        name: Convert to draft
+      - name: Convert to draft
         if: steps.pr.outputs.hasChangesets == 'true'
+        uses: actions/github-script@v7
         with:
           script: |
             const { number } = ${{ steps.find.outputs.result }};
