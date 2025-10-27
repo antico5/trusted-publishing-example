@@ -4,35 +4,32 @@
 name: Check peer dependency versions have been reviewed
 
 on:
-  merge_group:
-    types: [checks_requested]
   pull_request:
     types:
-      - opened
       - synchronize
-      - reopened
       - labeled
       - unlabeled
       - edited
-      - unlocked
-      - ready_for_review
-  pull_request_target:
-    types:
-      - opened
-      - synchronize
-      - reopened
-      - labeled
-      - unlabeled
-      - edited
-      - unlocked
-      - ready_for_review
-  push:
-    branches:
-      - changeset-release/main
-  create:
-  repository_dispatch:
-  check_run:
-  check_suite:
+  # pull_request_target:
+  #   types:
+  #     - opened
+  #     - synchronize
+  #     - reopened
+  #     - labeled
+  #     - unlabeled
+  #     - edited
+  #     - unlocked
+  #     - ready_for_review
+  # push:
+  #   branches:
+  #     - changeset-release/main
+  # create:
+  # repository_dispatch:
+  # check_run:
+  # check_suite:
+  # workflow_run:
+  #   workflows: ["Create release PR / Publish packages"]   # name of the workflow that opens/updates the PR
+  #   types: [completed]
 
 jobs:
   check-label:
