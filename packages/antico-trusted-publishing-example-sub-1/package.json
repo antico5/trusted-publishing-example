@@ -1,6 +1,6 @@
 {
   "name": "antico-trusted-publishing-example-sub-1",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "An example package published using Github as a trusted publisher",
   "repository": {
     "type": "git",
